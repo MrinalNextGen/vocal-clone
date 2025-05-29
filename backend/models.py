@@ -1,5 +1,4 @@
 from datetime import datetime
-import json
 
 class Blog:
     """Blog model class to represent a single blog post"""
@@ -12,7 +11,7 @@ class Blog:
         self.subHeading = subHeading
         self.description = description
         self.author = author
-        self.authorImage = authorImage or "https://randomuser.me/api/portraits/men/1.jpg"
+        self.authorImage = authorImage or "https://via.placeholder.com/40x40/cccccc/666666?text=User"
         self.isFavorite = isFavorite
         self.createdAt = createdAt or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
@@ -113,7 +112,7 @@ class BlogManager:
                 "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=80",
                 "heading": "A Hack You Can Try To Become a Creative Hero",
                 "subHeading": "Unlock your creative potential",
-                "description": "I've stopped writing on Vocal. Well, evidentially, I haven't – I'm writing on Vocal right now. Look at me go. The point is, creativity isn't about waiting for inspiration—it's about showing up consistently and doing the work. Here's a simple hack that changed everything for me.",
+                "description": "I've stopped writing on Vocal. Well, evidentially, I haven't – I'm writing on Vocal right now. Look at me go. The point is, creativity isn't about waiting for inspiration – it's about showing up consistently and doing the work. Here's a simple hack that changed everything for me.",
                 "author": "Jamie Jackson",
                 "authorImage": "https://randomuser.me/api/portraits/men/32.jpg",
                 "isFavorite": True,
@@ -234,47 +233,6 @@ class BlogManager:
         except Exception as e:
             print(f"Error toggling favorite: {str(e)}")
             return None
-    
-    def get_favorite_blogs(self):
-        """Get all favorite blogs"""
-        try:
-            favorite_blogs = [blog.to_dict() for blog in self.blogs if blog.isFavorite]
-            return favorite_blogs
-            
-        except Exception as e:
-            print(f"Error getting favorite blogs: {str(e)}")
-            return []
-    
-    def search_blogs(self, query):
-        """Search blogs by heading or description"""
-        try:
-            query = query.lower().strip()
-            matching_blogs = []
-            
-            for blog in self.blogs:
-                if (query in blog.heading.lower() or 
-                    query in blog.description.lower() or 
-                    query in blog.author.lower()):
-                    matching_blogs.append(blog.to_dict())
-            
-            return matching_blogs
-            
-        except Exception as e:
-            print(f"Error searching blogs: {str(e)}")
-            return []
-    
-    def get_blogs_by_author(self, author):
-        """Get all blogs by a specific author"""
-        try:
-            author_blogs = [blog.to_dict() for blog in self.blogs if blog.author.lower() == author.lower()]
-            return author_blogs
-            
-        except Exception as e:
-            print(f"Error getting blogs by author: {str(e)}")
-            return []
 
 # Create global blog manager instance
 blog_manager = BlogManager()
-
-# Export for easy importing
-__all__ = ['Blog', 'BlogManager', 'blog_manager']

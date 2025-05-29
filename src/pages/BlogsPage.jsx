@@ -104,11 +104,11 @@ export default function BlogsPage({
                 {/* Blog Image */}
                 <div className="aspect-w-16 aspect-h-9">
                   <img
-                    src={blog.image || "/placeholder.svg?height=200&width=400"}
+                    src={blog.image || "https://via.placeholder.com/400x200/cccccc/666666?text=Blog"}
                     alt={blog.heading}
                     className="w-full h-48 object-cover"
                     onError={(e) => {
-                      e.target.src = "/placeholder.svg?height=200&width=400";
+                      e.target.src = "https://via.placeholder.com/400x200/cccccc/666666?text=Blog";
                     }}
                   />
                 </div>
@@ -133,11 +133,11 @@ export default function BlogsPage({
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                     <div className="flex items-center space-x-3">
                       <img
-                        src={blog.authorImage || "/placeholder.svg?height=40&width=40"}
+                        src={blog.authorImage || "https://via.placeholder.com/40x40/cccccc/666666?text=User"}
                         alt={blog.author}
                         className="w-10 h-10 rounded-full object-cover border-2 border-gray-100"
                         onError={(e) => {
-                          e.target.src = "/placeholder.svg?height=40&width=40";
+                          e.target.src = "https://via.placeholder.com/40x40/cccccc/666666?text=User";
                         }}
                       />
                       <div>
