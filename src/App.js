@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoginPage from "./pages/LoginPage";
 import BlogsPage from "./pages/BlogsPage";
 import EditBlogPage from "./pages/EditBlogPage";
-import { blogAPI } from "./services/api"; // Fixed import path
+import { blogAPI } from "./services/api";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("login");
@@ -10,13 +10,6 @@ export default function App() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // Load blogs from API when component mounts
-  useEffect(() => {
-    if (currentPage === "blogs") {
-      loadBlogs();
-    }
-  }, [currentPage]);
 
   // Load blogs from API
   const loadBlogs = async () => {
@@ -28,12 +21,18 @@ export default function App() {
       console.log("Blogs loaded successfully:", blogData);
       setBlogs(blogData);
     } catch (err) {
-      setError("Failed to load blogs. Please try again.");
       console.error("Error loading blogs:", err);
+      setError("Failed to load blogs. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (currentPage === "blogs") {
+      loadBlogs();
+    }
+  }, [currentPage]);
 
   const handleLogin = () => {
     setCurrentPage("blogs");
@@ -52,24 +51,21 @@ export default function App() {
       console.log("Saving blog:", blogData);
       
       if (editingBlog) {
-        // Update existing blog
-        console.log("Updating blog with ID:", editingBlog.id);
+        console.log("Updating existing blog with ID:", editingBlog.id);
         await blogAPI.updateBlog(editingBlog.id, blogData);
         console.log("Blog updated successfully");
       } else {
-        // Create new blog
         console.log("Creating new blog");
         await blogAPI.createBlog(blogData);
         console.log("Blog created successfully");
       }
 
-      // Reload blogs to get updated data
-      await loadBlogs();
       setCurrentPage("blogs");
       setEditingBlog(null);
+      await loadBlogs(); // Reload blogs to show changes
     } catch (err) {
-      setError("Failed to save blog. Please try again.");
       console.error("Error saving blog:", err);
+      setError(`Failed to ${editingBlog ? 'update' : 'create'} blog: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -85,8 +81,8 @@ export default function App() {
         await loadBlogs(); // Reload blogs after deletion
         console.log("Blog deleted successfully");
       } catch (err) {
-        setError("Failed to delete blog. Please try again.");
         console.error("Error deleting blog:", err);
+        setError("Failed to delete blog. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -101,14 +97,15 @@ export default function App() {
       await loadBlogs(); // Reload blogs to get updated favorite status
       console.log("Favorite toggled successfully");
     } catch (err) {
-      setError("Failed to update favorite status. Please try again.");
       console.error("Error toggling favorite:", err);
+      setError("Failed to update favorite status. Please try again.");
     }
   };
 
   const handleBackToBlogs = () => {
     setCurrentPage("blogs");
     setEditingBlog(null);
+    setError(null);
   };
 
   if (currentPage === "login") {

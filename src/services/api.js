@@ -1,11 +1,6 @@
-// API service for blog management
 const API_BASE_URL = 'http://localhost:5000/api';
 
-// Add debugging for API calls
-const DEBUG = true;
-
 class BlogAPI {
-  // Helper method to handle API responses
   async handleResponse(response) {
     if (!response.ok) {
       let errorMessage = `HTTP error! status: ${response.status}`;
@@ -19,16 +14,16 @@ class BlogAPI {
     }
     
     const data = await response.json();
+    console.log(`API Response [${response.status}]:`, data);
     return data;
   }
 
-  // Get all blogs
   async getAllBlogs() {
     try {
-      if (DEBUG) console.log('API: Fetching all blogs from:', `${API_BASE_URL}/blogs`);
+      console.log('API: Fetching all blogs from:', `${API_BASE_URL}/blogs`);
       const response = await fetch(`${API_BASE_URL}/blogs`);
       const result = await this.handleResponse(response);
-      if (DEBUG) console.log('API: Successfully fetched blogs:', result.data);
+      console.log('API: Successfully fetched blogs:', result.data);
       return result.data;
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -36,11 +31,12 @@ class BlogAPI {
     }
   }
 
-  // Get a specific blog by ID
   async getBlogById(blogId) {
     try {
+      console.log(`API: Fetching blog ${blogId}`);
       const response = await fetch(`${API_BASE_URL}/blogs/${blogId}`);
       const result = await this.handleResponse(response);
+      console.log('API: Successfully fetched blog:', result.data);
       return result.data;
     } catch (error) {
       console.error('Error fetching blog:', error);
@@ -48,11 +44,9 @@ class BlogAPI {
     }
   }
 
-  // Create a new blog
   async createBlog(blogData) {
     try {
-      if (DEBUG) console.log('API: Creating new blog:', blogData);
-      
+      console.log('API: Creating new blog:', blogData);
       const response = await fetch(`${API_BASE_URL}/blogs`, {
         method: 'POST',
         headers: {
@@ -60,9 +54,8 @@ class BlogAPI {
         },
         body: JSON.stringify(blogData),
       });
-      
       const result = await this.handleResponse(response);
-      if (DEBUG) console.log('API: Successfully created blog:', result.data);
+      console.log('API: Successfully created blog:', result.data);
       return result.data;
     } catch (error) {
       console.error('Error creating blog:', error);
@@ -70,11 +63,9 @@ class BlogAPI {
     }
   }
 
-  // Update an existing blog
   async updateBlog(blogId, blogData) {
     try {
-      if (DEBUG) console.log(`API: Updating blog ${blogId}:`, blogData);
-      
+      console.log(`API: Updating blog ${blogId}:`, blogData);
       const response = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
         method: 'PUT',
         headers: {
@@ -82,9 +73,8 @@ class BlogAPI {
         },
         body: JSON.stringify(blogData),
       });
-      
       const result = await this.handleResponse(response);
-      if (DEBUG) console.log('API: Successfully updated blog:', result.data);
+      console.log('API: Successfully updated blog:', result.data);
       return result.data;
     } catch (error) {
       console.error('Error updating blog:', error);
@@ -92,13 +82,14 @@ class BlogAPI {
     }
   }
 
-  // Delete a blog
   async deleteBlog(blogId) {
     try {
+      console.log(`API: Deleting blog ${blogId}`);
       const response = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
         method: 'DELETE',
       });
       const result = await this.handleResponse(response);
+      console.log('API: Successfully deleted blog');
       return result;
     } catch (error) {
       console.error('Error deleting blog:', error);
@@ -106,13 +97,14 @@ class BlogAPI {
     }
   }
 
-  // Toggle favorite status
   async toggleFavorite(blogId) {
     try {
+      console.log(`API: Toggling favorite for blog ${blogId}`);
       const response = await fetch(`${API_BASE_URL}/blogs/${blogId}/favorite`, {
         method: 'PATCH',
       });
       const result = await this.handleResponse(response);
+      console.log('API: Successfully toggled favorite:', result.data);
       return result.data;
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -120,11 +112,12 @@ class BlogAPI {
     }
   }
 
-  // Get all favorite blogs
   async getFavoriteBlogs() {
     try {
+      console.log('API: Fetching favorite blogs');
       const response = await fetch(`${API_BASE_URL}/blogs/favorites`);
       const result = await this.handleResponse(response);
+      console.log('API: Successfully fetched favorite blogs:', result.data);
       return result.data;
     } catch (error) {
       console.error('Error fetching favorite blogs:', error);
@@ -133,6 +126,5 @@ class BlogAPI {
   }
 }
 
-// Export a singleton instance
 export const blogAPI = new BlogAPI();
 export default blogAPI;
