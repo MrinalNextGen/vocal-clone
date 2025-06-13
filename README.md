@@ -1,123 +1,62 @@
+# Vocal Clone - Frontend
 
-# Vocal Clone
+This is the React-based frontend for the Vocal Clone project. It provides a clean, modern user interface for creating, reading, and managing blog posts by interacting with the backend API.
 
-A full-stack blog platform inspired by [Vocal.media](https://vocal.media/), built with **React** (frontend) and **Flask** (backend).  
-Create, edit, delete, and favorite stories with a beautiful UI and a robust Python API.
+## ✨ Features
 
----
+-   **Modern UI**: Built with React and modern UI components.
+-   **Full CRUD Functionality**: Create, read, update, and delete blog posts seamlessly.
+-   **API Integration**: Communicates with the Flask backend API to fetch and manage data.
+-   **Responsive Design**: Works well on both desktop and mobile devices.
+-   **Docker Support**: Includes a `Dockerfile` for easy containerization and deployment.
 
-## 🚀 Features
+## 🛠️ Tech Stack
 
-- **Create, Edit, Delete Blogs** – Full CRUD functionality
-- **Mark as Favorite** – Toggle favorite status for any story
-- **Responsive UI** – Clean, mobile-friendly design
-- **API Logging** – Backend logs all requests for easy debugging
-- **No 404 Placeholder Errors** – Uses remote placeholders for images
-- **Instant Updates** – Changes reflect immediately on the homepage
+-   **Framework**: React
+-   **Styling**: CSS / Tailwind CSS (or your choice)
+-   **API Client**: Axios / Fetch API
+-   **Containerization**: Docker, Nginx (for serving the build)
+-   **Language**: JavaScript / JSX
 
----
+## 🚀 Getting Started
 
-## 🗂️ Project Structure
+### Prerequisites
 
-```
-vocal-clone/
-├── backend/
-│   ├── app.py
-│   ├── models.py
-│   ├── routes.py
-│   └── ...
-├── src/
-│   ├── App.js
-│   ├── services/
-│   │   └── api.js
-│   ├── pages/
-│   │   ├── BlogsPage.jsx
-│   │   └── EditBlogPage.jsx
-│   └── components/ui/
-│       ├── button.jsx
-│       ├── input.jsx
-│       ├── label.jsx
-│       └── textarea.jsx
-└── README.md
-```
+-   [Node.js](https://nodejs.org/) (v18 or higher)
+-   [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+-   The [backend server](https://github.com/MrinalNextGen/Vocal-Clone-Backend) must be running.
 
----
+### 1. Clone the Repository
 
-## ⚙️ Setup Instructions
+git clone https://github.com/MrinalNextGen/vocal-clone-frontend.git
+cd vocal-clone-frontend
 
-### 1. **Clone the Repository**
+### 2. Install Dependencies
 
-```bash
-git clone https://github.com//.git
-cd vocal-clone
-```
-
-### 2. **Backend Setup (Flask)**
-
-```bash
-cd backend
-python -m venv venv
-# Activate the virtual environment:
-# On Windows:
-venv\Scripts\activate
-# On Mac/Linux:
-source venv/bin/activate
-
-pip install flask flask-cors
-python app.py
-```
-The backend will run at [http://localhost:5000](http://localhost:5000).
-
-### 3. **Frontend Setup (React)**
-
-```bash
-cd ..
 npm install
+
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the root of the frontend folder to specify the backend API endpoint.
+
+REACT_APP_API_URL=http://localhost:5000/api
+
+### 4. Start the Development Server
+
 npm start
-```
-The frontend will run at [http://localhost:3000](http://localhost:3000).
 
----
+The application will be running and available at `http://localhost:3000`.
 
-## 📝 Usage
+### 5. Build for Production
 
-- **Create Story**: Click "Create Story", fill out the form, and publish.
-- **Edit Story**: Click the edit icon on any story card, make changes, and update.
-- **Delete Story**: Click the trash icon and confirm.
-- **Favorite**: Click the heart icon to toggle favorite status.
+To create an optimized production build, run:
 
----
+npm run build
 
-## 🔗 API Endpoints
 
-- `GET /api/blogs` – List all blogs
-- `POST /api/blogs` – Create a new blog
-- `GET /api/blogs/` – Get a specific blog
-- `PUT /api/blogs/` – Update a blog
-- `DELETE /api/blogs/` – Delete a blog
-- `PATCH /api/blogs//favorite` – Toggle favorite
-- `GET /api/blogs/favorites` – List favorite blogs
+This will create a `build/` directory with all the static assets ready for deployment.
 
----
+## 📄 License
 
-## 🖼️ Placeholder Images
-
-This app uses [via.placeholder.com](https://via.placeholder.com/) for fallback images, so you’ll never see 404 errors for missing images.
-
----
-
-## 🛡️ License
-
-MIT License
-
----
-
-## 🙌 Credits
-
-- [Vocal.media](https://vocal.media/) for design inspiration
-- [React](https://react.dev/) & [Flask](https://flask.palletsprojects.com/)
-- [shadcn/ui](https://ui.shadcn.com/) for UI components
-
----
-
-**Happy blogging! 🚀**
+This project is licensed under the MIT License. See the `LICENSE` file for details.
