@@ -8,7 +8,7 @@ const blogs = [
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     meta: "4 days ago in Poets"
   },
-  // Add more blog objects here to match your screenshots
+     
 ];
 
 function BlogCard({ blog }) {

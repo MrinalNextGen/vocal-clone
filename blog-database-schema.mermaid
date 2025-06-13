@@ -1,0 +1,36 @@
+erDiagram
+    BLOGS {
+        int id PK
+        varchar image_url
+        varchar heading
+        varchar sub_heading
+        text description
+        boolean is_favourite
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    USERS {
+        int id PK
+        varchar email
+        varchar username
+        varchar password_hash
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    CATEGORIES {
+        int id PK
+        varchar name
+        varchar description
+        timestamp created_at
+    }
+    
+    BLOG_CATEGORIES {
+        int blog_id FK
+        int category_id FK
+    }
+    
+    BLOGS ||--o{ BLOG_CATEGORIES : has
+    CATEGORIES ||--o{ BLOG_CATEGORIES : belongs_to
+    USERS ||--o{ BLOGS : creates
